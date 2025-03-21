@@ -219,7 +219,7 @@ def color2vb(color=None, default=(1., 1., 1.), length=1, alpha=1.0,
                 alpha = color[-1]
                 color = color[0:-1]
             coltuple = color
-        elif isinstance(color, str) and (color[0] is not '#'):  # Matplotlib
+        elif isinstance(color, str) and (color[0] != '#'):  # Matplotlib
             # Check if the name is in the Matplotlib database :
             if color in mplcol.cnames.keys():
                 coltuple = mplcol.hex2color(mplcol.cnames[color])
@@ -227,7 +227,7 @@ def color2vb(color=None, default=(1., 1., 1.), length=1, alpha=1.0,
                 warn("The color name " + color + " is not in the matplotlib "
                      "database. Default color will be used instead.")
                 coltuple = default
-        elif isinstance(color, str) and (color[0] is '#'):  # Hexadecimal
+        elif isinstance(color, str) and (color[0] == '#'):  # Hexadecimal
             try:
                 coltuple = mplcol.hex2color(color)
             except:
@@ -494,9 +494,9 @@ def colorclip(x, th, kind='under'):
     x : array_like
         The clipping array.
     """
-    if kind is 'under':
+    if kind == 'under':
         idx = x < th
-    elif kind is 'over':
+    elif kind == 'over':
         idx = x > th
     x[idx] = th
     return x
@@ -605,9 +605,9 @@ def mpl_cmap(invert=False):
     fullmpl = list(cm.datad.keys()) + list(cm.cmaps_listed.keys())
     # Get the list of cmaps (inverted or not) :
     if invert:
-        cmap_lst = [k for k in fullmpl if k.find('_r') + 1]
+        cmap_lst = [k for k in fullmpl if k.find('_r') != -1]
     else:
-        cmap_lst = [k for k in fullmpl if not k.find('_r') + 1]
+        cmap_lst = [k for k in fullmpl if k.find('_r') == -1]
 
     # Sort the list :
     cmap_lst.sort()
@@ -633,12 +633,12 @@ def mpl_cmap_index(cmap, cmaps=None):
         Boolean value indicating if it's a reversed colormap.
     """
     # Find if it's a reversed colormap :
-    invert = bool(cmap.find('_r') + 1)
+    invert = cmap.find('_r') != -1
     # Get list of colormaps :
     if cmaps is None:
         cmap = cmap.replace('_r', '')
         cmaps = mpl_cmap()
-        return np.where(np.char.find(cmaps, cmap) + 1)[0][0], invert
+        return np.where(np.char.find(cmaps, cmap) != -1)[0][0], invert
     else:
         return cmaps.index(cmap), invert
 
