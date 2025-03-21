@@ -207,7 +207,7 @@ class UiDetection(object):
                 self._fcn_slider_move()
 
             # Update progress bar :
-            self._ToolDetectProgress.setValue(100. * (i + 1) / len(self))
+            self._ToolDetectProgress.setValue(int(100. * (i + 1) / len(self)))
 
         ############################################################
         # NUMBER // DENSITY

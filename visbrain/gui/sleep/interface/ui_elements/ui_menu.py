@@ -374,8 +374,18 @@ class UiMenu(HelpMenu):
                 for i, k in enumerate(self._chanChecks):
                     self._chanChecks[i].setChecked(
                         config['Channel_Visible'][i])
-                    self._ymaxSpin[i].setValue(config['Channel_Amplitude_Max'][i])
-                    self._yminSpin[i].setValue(config['Channel_Amplitude_Min'][i])
+                    # Handle missing Channel_Amplitude_Max and Channel_Amplitude_Min in config file
+                    if 'Channel_Amplitude_Max' in config:
+                        self._ymaxSpin[i].setValue(config['Channel_Amplitude_Max'][i])
+                    elif 'Channel_Amplitude' in config:
+                        # Use Channel_Amplitude as default value
+                        self._ymaxSpin[i].setValue(config['Channel_Amplitude'][i])
+                    
+                    if 'Channel_Amplitude_Min' in config:
+                        self._yminSpin[i].setValue(config['Channel_Amplitude_Min'][i])
+                    elif 'Channel_Amplitude' in config:
+                        # Use -Channel_Amplitude as default value
+                        self._yminSpin[i].setValue(-config['Channel_Amplitude'][i])
                 # Amplitudes :
                 # _try("self._PanAllAmpMin.setValue(config['AllAmpMin'])")
                 # _try("self._PanAllAmpMax.setValue(config['AllAmpMax'])")

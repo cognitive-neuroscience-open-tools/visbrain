@@ -148,7 +148,7 @@ def read_x3d(path):
 
     # Get mesh faces :
     face_node = root_node.find('.//IndexedFaceSet')
-    faces = re.sub('[\s,]+', ',', face_node.attrib['coordIndex'].strip())
+    faces = re.sub(r'[\s,]+', ',', face_node.attrib['coordIndex'].strip())
     faces = re.sub(',-1,', '\n', faces)
     faces = re.sub(',-1$', '', faces)
     faces = np.array(faces.replace('\n', ',').split(',')).astype(int)
@@ -156,7 +156,7 @@ def read_x3d(path):
 
     # Get mesh vertices :
     vertex_node = face_node.find('Coordinate')
-    vertices = re.sub('[\s,]+', ' ', vertex_node.attrib['point'].strip())
+    vertices = re.sub(r'[\s,]+', ' ', vertex_node.attrib['point'].strip())
     vertices = np.array(vertices.split(' ')[0:-1]).astype(float)
     vertices = vertices.reshape(int(vertices.shape[0] / 3), 3)
 

@@ -245,7 +245,7 @@ def write_hypno(filename, hypno, version='time', sf=100., npts=1, window=1.,
     # Extract file extension :
     _, ext = os.path.splitext(filename)
     # Switch between time and sample version :
-    if version is 'sample':  # v1 = sample
+    if version == 'sample':  # v1 = sample
         # Take a down-sample version of the hypno :
         step = int(len(hypno) / np.round(npts / sf))
         hypno = hypno[::step].astype(int)
@@ -268,7 +268,7 @@ def write_hypno(filename, hypno, version='time', sf=100., npts=1, window=1.,
                     msgBox.setText(msg)
                     msgBox.exec
                 raise ValueError(msg)
-    elif version is 'time':  # v2 = time
+    elif version == 'time':  # v2 = time
         # Get the DataFrame :
         df = hypno_sample_to_time(hypno, time, hstates, hvalues)
         if isinstance(info, dict):
