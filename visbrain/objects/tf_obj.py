@@ -131,7 +131,7 @@ class TimeFrequencyObj(ImageObj):
         assert isinstance(sf, (int, float))
         assert method in ('fourier', 'wavelet', 'multitaper')
         if not isinstance(window, str):
-            window = 'hamming' if method is 'fourier' else 'flat'
+            window = 'hamming' if method == 'fourier' else 'flat'
         assert 0. <= overlap < 1.
         # Wavelet args :
         assert isinstance(f_min, (int, float))

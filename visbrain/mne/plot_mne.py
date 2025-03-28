@@ -56,7 +56,7 @@ def _plt_src(name, kw_brain_obj, active_data, active_vert, sources,
             brain.menuDispCbar.setChecked(True)
             brain._fcn_menu_disp_cbar()
         brain.show()
-    elif show is 'scene':  # return a SceneObj
+    elif show == 'scene':  # return a SceneObj
         logger.info("    Define a unique scene for the Brain and Source "
                     "objects")
         sc = SceneObj()
