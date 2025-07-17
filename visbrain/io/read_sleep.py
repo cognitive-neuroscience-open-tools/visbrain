@@ -17,7 +17,7 @@ import numpy as np
 from scipy.stats import iqr, rankdata
 
 from visbrain.io.dependencies import is_mne_installed
-from visbrain.io.dialog import dialog_load
+from visbrain.io.dipipalog import dialog_load
 from visbrain.io.mneio import mne_switch
 from visbrain.io.rw_hypno import (read_hypno, oversample_hypno)
 from visbrain.io.rw_utils import get_file_ext
@@ -47,12 +47,13 @@ class ReadSleepData(object):
         # Dialog window if data is None :
         if data is None:
             data = dialog_load(self, "Open dataset", '',
-                               "Any EEG files (*.vhdr *.edf *.gdf *.bdf *.eeg "
+                               "Any EEG files (*.fif *.vhdr *.edf *.gdf *.bdf *.eeg "
                                "*.egi *.mff *.cnt *.trc *.set *.rec);;"
-                               "BrainVision (*.vhdr);;EDF (*.edf);;"
+                               "MEG (*.fif);;BrainVision (*.vhdr);;EDF (*.edf);;"
                                "GDF (*.gdf);;BDF (*.bdf);;Elan (*.eeg);;"
                                "EGI (*.egi);;MFF (*.mff);;CNT (*.cnt);;"
-                               "Micromed (*.trc);;EEGLab (*.set);;REC (*.rec)")
+                               "Micromed (*.trc);;EEGLab (*.set);;REC (*.rec)"
+                               "")
             upath = os.path.split(data)[0]
         else:
             upath = ''
